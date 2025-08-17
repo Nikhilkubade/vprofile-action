@@ -34,9 +34,9 @@ jobs:
           sonar-scanner \
             -Dsonar.host.url=${{secrets.SONAR_URL}} \
             -Dsonar.login=${{secrets.SONAR_TOKEN}} \
+            -Dsonar.organization=${{secrets.SONAR_ORGANIZATION}} \
             -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}} \
             -Dsonar.projectName=${{secrets.SONAR_PROJECT_NAME}} \
-            -Dsonar.organization=${{secrets.SONAR_ORGANIZATION}} \
             -Dsonar.sources=src/ \
             -Dsonar.junit.reportPaths=target/surefire-reports/ \
             -Dsonar.jacoco.reportPaths=target/jacoco.exec \
@@ -50,8 +50,8 @@ jobs:
       # Force to fail step after specific time. 
         timeout-minutes: 5
         env:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          sonar-host-url: ${{ secrets.SONAR_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
 
           ###
    
