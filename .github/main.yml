@@ -26,18 +26,28 @@ jobs:
           distribution: 'temurin'
 
       # Setup sonar-scanner
+      - name: Install SonarQube Scanner
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856-linux.zip
+          unzip sonar-scanner-cli-4.8.0.2856-linux.zip
+          sudo mv sonar-scanner-4.8.0.2856-linux /opt/sonar-scanner
+          sudo ln -s /opt/sonar-scanner/bin/sonar-scanner /usr/local/bin/sonar-scanner
+
       - name: SonarQube Scan
-        run: sonar-scanner
-          -Dsonar.host.url=${{secrets.SONAR_URL}}
-          -Dsonar.login=${{secrets.SONAR_TOKEN}}
-          -Dsonar.organization=${{secrets.SONAR_ORGANIZATION}}
-          -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}}
-          -Dsonar.projectName=${{secrets.SONAR_PROJECT_NAME}}
-          -Dsonar.sources=src/
-          -Dsonar.junit.reportPaths=target/surefire-reports/
-          -Dsonar.jacoco.reportPaths=target/jacoco.exec
-          -Dsonar.checkstyle.reportPaths=target/checkstyle-result.xml
-          -Dsonar.java.binaries=target/test-classes/com/visualpath/account
+        run: |
+          sonar-scanner \
+            -Dsonar.host.url=${{secrets.SONAR_URL}} \
+            -Dsonar.login=${{secrets.SONAR_TOKEN}} \
+            -Dsonar.organization=${{secrets.SONAR_ORGANIZATION}} \
+            -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}} \
+            -Dsonar.projectName=${{secrets.SONAR_PROJECT_NAME}} \
+            -Dsonar.sources=src/ \
+            -Dsonar.junit.reportPaths=target/surefire-reports/ \
+            -Dsonar.jacoco.reportPaths=target/jacoco.exec \
+            -Dsonar.checkstyle.reportPaths=target/checkstyle-result.xml \
+            -Dsonar.java.binaries=target/test-classes/com/visualpath/account
 
       #Build the quality gate check
       - name: SonarQube Quality Gate check
