@@ -34,7 +34,6 @@ jobs:
           sonar-scanner \
             -Dsonar.host.url=${{secrets.SONAR_URL}} \
             -Dsonar.login=${{secrets.SONAR_TOKEN}} \
-            -Dsonar.organization=${{secrets.SONAR_ORGANIZATION}} \
             -Dsonar.projectKey=${{secrets.SONAR_PROJECT_KEY}} \
             -Dsonar.projectName=${{secrets.SONAR_PROJECT_NAME}} \
             -Dsonar.sources=src/ \
