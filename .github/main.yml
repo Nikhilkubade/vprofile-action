@@ -41,7 +41,7 @@ jobs:
             -Dsonar.junit.reportPaths=target/surefire-reports/ \
             -Dsonar.jacoco.reportPaths=target/jacoco.exec \
             -Dsonar.checkstyle.reportPaths=target/checkstyle-result.xml \
-            -Dsonar.java.binaries=target/test-classes/com/visualpath/account
+            -Dsonar.java.binaries=target/test-classes/com/visualpathit/account
 
       #Build the quality gate check
       - name: SonarQube Quality Gate check
@@ -50,8 +50,8 @@ jobs:
       # Force to fail step after specific time. 
         timeout-minutes: 5
         env:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          sonar-host-url: ${{ secrets.SONAR_URL }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_URL }}
 
           ###
    
